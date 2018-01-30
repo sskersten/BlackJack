@@ -1,18 +1,34 @@
+package com.harrisonwelch.blackjack;
+
+import java.text.DecimalFormat;
+
 /**
  * CSCI 4020
  * Dr. Nicholson
  * William Kersten
  * 1/29/2018
+ * basic class to keep track of money that the player has.
  */
 
 public class Wallet {
-    double cash;
-    double maxCashHeld;
-    double totalEarnings;
-    double totalLost;
+    private double cash;
+    private double maxCashHeld;
+    private double totalEarnings;
+    private double totalLost;
+
+    private static DecimalFormat decimFormat = new DecimalFormat("0.00");
 
     /**
-     * Creates a Wallet object with $0.
+     * Converts a double to a string with only two decimal places, like money.
+     * @param cash the double to convert to a money-fied string.
+     * @return a string with the double having only two numbers after the decimal point.
+     */
+    public static String convertDoubleToCashString(double cash){
+        return decimFormat.format(cash);
+    }
+
+    /**
+     * Creates a com.harrisonwelch.blackjack.Wallet object with $0.
      */
     public Wallet() {
         cash = 0;
@@ -23,12 +39,12 @@ public class Wallet {
     }
 
     /**
-     * creates a Wallet object with an input amount of cash.
-     * @param cash how much cash to start the Wallet with.
+     * creates a com.harrisonwelch.blackjack.Wallet object with an input amount of cash.
+     * @param cash how much cash to start the com.harrisonwelch.blackjack.Wallet with.
      */
     public Wallet(double cash){
         this.cash = cash;
-        maxCashHeld = 0;
+        maxCashHeld = cash;
         totalEarnings = 0;
         totalLost = 0;
     }
@@ -38,7 +54,7 @@ public class Wallet {
      */
     @Override
     public String toString() {
-        return "$" + cash;
+        return "$" + (decimFormat.format(cash));
     }
 
     public double getCash() {
