@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         Log.i("TAG","onCreate");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_debug);
 
         setButtons();
 
