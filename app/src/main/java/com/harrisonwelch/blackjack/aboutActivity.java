@@ -11,7 +11,7 @@ public class aboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        findViewById(R.id.about_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
