@@ -4,4 +4,11 @@
     <string name="howToPlay">How to play</string>
     <string name="options">Options</string>
     <string name="aboutTheApp">About</string>
+
+    <string name="aboutHeader">About the App</string>
+    <string name="aboutText">
+        BlackJack was made by Suzy Kersten and Harrison Welch over the period of 3 weeks for
+        our CSCI 4020 class.
+    </string>
+    <string name="backToMain">Back to Main Menu</string>
 </resources>
