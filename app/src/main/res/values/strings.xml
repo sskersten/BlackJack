@@ -5,6 +5,8 @@
     <string name="options">Options</string>
     <string name="aboutTheApp">About</string>
 
+    <string name="playerTurn">Player Turn</string>
+
     <string name="betLayoutTitle">Bet Amount?</string>
     <string name="add5">+$5</string>
     <string name="add10">+$10</string>
