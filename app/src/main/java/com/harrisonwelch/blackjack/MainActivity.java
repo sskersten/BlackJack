@@ -22,7 +22,8 @@ public class MainActivity extends Activity{
             @Override
             public void onClick(View view) {
                 //start gameActivity
-                Toast.makeText(getApplicationContext(), "Not done yet!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
             }
         });
 
