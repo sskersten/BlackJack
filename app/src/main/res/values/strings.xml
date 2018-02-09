@@ -5,10 +5,21 @@
     <string name="options">Options</string>
     <string name="aboutTheApp">About</string>
 
+    <string name="betLayoutTitle">Bet Amount?</string>
+    <string name="add5">+$5</string>
+    <string name="add10">+$10</string>
+    <string name="add25">+$25</string>
+    <string name="add50">+$50</string>
+    <string name="moneySymbol">$</string>
+    <string name="valueForAce">Value for Ace Card?</string>
+    <string name="aceSubtext">Note: Ace value will be automatically set to 1 if total score goes over 21.</string>
+
     <string name="aboutHeader">About the App</string>
     <string name="aboutText">
         BlackJack was made by Suzy Kersten and Harrison Welch over the period of 3 weeks for
         our CSCI 4020 class.
     </string>
     <string name="backToMain">Back to Main Menu</string>
+
+
 </resources>
