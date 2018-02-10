@@ -2,6 +2,10 @@ package com.harrisonwelch.blackjack;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -122,5 +126,29 @@ public class MainActivity_debug extends Activity {
 
         ((TextView) findViewById(R.id.tv_total)).setText(total+"");
 
+    }
+
+    void makeSpriteSheet() {
+        int cardHeight = 83;
+        int cardWidth = 57;
+        int numberFramesInRows = 14;
+        int totalFrames = 54;
+
+        int xStart = 0;
+        int yStart = 0;
+        Vector<Bitmap> vec = new Vector<Bitmap>();
+
+        Bitmap cardSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.cards_full);
+
+        for(int i = 0; i < totalFrames; i++){
+            xStart = ( i % numberFramesInRows) * cardWidth;
+            yStart = ( i / numberFramesInRows) * cardHeight;
+            Bitmap bitmap = Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(bitmap);
+            Rect src = new Rect(xStart,yStart,xStart+cardWidth,yStart+cardHeight);
+            Rect dst = new Rect(0,0,cardWidth,cardHeight);
+            c.drawBitmap(cardSpriteSheet,src,dst,null);
+            vec.add(bitmap);
+        }
     }
 }
