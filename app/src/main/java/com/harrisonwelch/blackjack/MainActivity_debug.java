@@ -77,7 +77,7 @@ public class MainActivity_debug extends Activity {
     // gives the player a card
     private void giveCard(String person){
 
-        Bitmap randCard = generateCard(cardBitmaps);
+        Bitmap randCard = generateCard(cardBitmaps, person);
 
         if(person.equals("dealer")){
             if(dealerCards == 0){
@@ -101,10 +101,13 @@ public class MainActivity_debug extends Activity {
 
     }
 
-    private Bitmap generateCard(Vector<Bitmap> vec){
+    private Bitmap generateCard(Vector<Bitmap> vec,String person){
         int randInt = (random.nextInt(52));
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
+
+        updateScore(randInt,person);
+
         return vec.get(randInt);
     }
 
@@ -168,6 +171,9 @@ public class MainActivity_debug extends Activity {
     private void initTable(){
         // initialize the table to give the dealer 1 face down card and the player 2 face up cards
 
+        ((TextView) findViewById(R.id.tv_dealerScore)).setText("0");
+        ((TextView) findViewById(R.id.tv_playerScore)).setText("0");
+
         // set the the dealer handslot 1 to card back, and slot 2 to rand card
         giveCard("dealer");
         giveCard("dealer");
@@ -186,12 +192,13 @@ public class MainActivity_debug extends Activity {
             dealerScore += cardValue;
 
             //update the UI to reflect the observable dealer score(not including the first card.
-            ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerScore);
+            ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerScore+"");
 
         } else if(person.equals("player")) {
             //update the handSum and update UI to reflect
             playerScore += cardValue;
-            ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore);
+            ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
         }
     }
+
 }
