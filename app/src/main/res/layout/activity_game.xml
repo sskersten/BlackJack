@@ -27,66 +27,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="8dp" />
 
-    <TextView
-        android:id="@+id/gameState_textview"
-        style="@style/gameStateHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/playerTurn"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_25Perc" />
-
-    <LinearLayout
-        android:id="@+id/aceValue_linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_75Perc"
-        app:layout_constraintTop_toTopOf="@+id/guideline_25Perc">
-
-        <TextView
-            android:id="@+id/textView9"
-            style="@style/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/valueForAce" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/aceSubtext" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/aceValue1_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1" />
-
-            <Button
-                android:id="@+id/aceValue11_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="11" />
-        </LinearLayout>
-
-    </LinearLayout>
-
     <LinearLayout
         android:id="@+id/nicholstare"
         android:layout_width="0dp"
@@ -105,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -113,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -121,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -129,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -137,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
     </LinearLayout>
@@ -179,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -187,6 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -195,6 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -203,6 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -211,6 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/exampleCard"
             android:scaleType="fitEnd"
             android:src="@drawable/nicholstare" />
 
@@ -302,7 +252,7 @@
         android:layout_marginTop="16dp"
         android:background="@android:color/darker_gray"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline_75Perc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -313,6 +263,7 @@
             style="@style/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:labelFor="@+id/betAmount_editText"
             android:text="@string/betLayoutTitle" />
 
         <LinearLayout
@@ -330,6 +281,7 @@
 
             <Button
                 android:id="@+id/betAdd10_button"
+                style="android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -367,7 +319,7 @@
 
             <EditText
                 android:id="@+id/betAmount_editText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -382,5 +334,67 @@
             android:text="@string/letsGo" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/aceValue_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_75Perc"
+        app:layout_constraintTop_toTopOf="@+id/guideline_25Perc">
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/valueForAce" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/aceSubtext" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/aceValue1_button"
+                style="@style/android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/one" />
+
+            <Button
+                android:id="@+id/aceValue11_button"
+                style="@style/android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/eleven" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/gameState_textview"
+        style="@style/gameStateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/playerTurn"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_25Perc" />
 
 </android.support.constraint.ConstraintLayout>
