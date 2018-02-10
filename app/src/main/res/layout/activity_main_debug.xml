@@ -13,25 +13,19 @@
         android:id="@+id/iv_table1"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="412dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/iv_table2"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="412dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_table1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,12 +33,8 @@
         android:id="@+id/iv_table3"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="412dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_table2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,27 +42,66 @@
         android:id="@+id/iv_table4"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="412dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_table3"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/iv_table5"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="412dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_table4"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_table6"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_table1" />
+
+    <ImageView
+        android:id="@+id/iv_table7"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintStart_toEndOf="@+id/iv_table6"
+        app:layout_constraintTop_toBottomOf="@+id/iv_table2" />
+
+    <ImageView
+        android:id="@+id/iv_table8"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintStart_toEndOf="@+id/iv_table7"
+        app:layout_constraintTop_toBottomOf="@+id/iv_table3" />
+
+    <ImageView
+        android:id="@+id/iv_table9"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintStart_toEndOf="@+id/iv_table8"
+        app:layout_constraintTop_toBottomOf="@+id/iv_table4" />
+
+    <ImageView
+        android:id="@+id/iv_table10"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintStart_toEndOf="@+id/iv_table9"
+        app:layout_constraintTop_toBottomOf="@+id/iv_table5" />
+
 
     <Button
         android:id="@+id/btn_stand"
