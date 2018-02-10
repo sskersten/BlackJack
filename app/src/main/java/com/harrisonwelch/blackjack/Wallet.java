@@ -54,7 +54,7 @@ public class Wallet {
      */
     @Override
     public String toString() {
-        return "$" + (decimFormat.format(cash));
+        return(decimFormat.format(cash));
     }
 
     public double getCash() {

@@ -14,7 +14,10 @@
     <string name="add50">+$50</string>
     <string name="moneySymbol">$</string>
     <string name="letsGo">Let\'s Go!</string>
-    <string name="overMoneyHeldError">You\'re already all in!</string>
+    <string name="overMoneyHeldError">You don\'t have that much money in your wallet!</string>
+    <string name="notEnoughMoneyBetError">Minimum bet is $5.00 at this table.</string>
+    <string name="currentMoney">Current Money: $</string>
+
     <string name="valueForAce">Value for Ace Card?</string>
     <string name="aceSubtext">Note: Ace value will be automatically set to 1 if total score goes over 21.</string>]
     <string name="one">1</string>
