@@ -3,6 +3,8 @@ package com.harrisonwelch.blackjack;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,8 @@ public class GameActivity extends Activity {
         for (int id : addBetButtonIds){
             findViewById(id).setOnClickListener(setBetListener);
         }
+
+
 
     }
 
@@ -76,6 +80,8 @@ public class GameActivity extends Activity {
             wallet.removeCash(betAmount);
             currentBet = betAmount;
             betAmount_textView.setText(Wallet.convertDoubleToCashString(betAmount));
+            Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
+            findViewById(R.id.bet_linearLayout).startAnimation(fadeIn);
             findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
         }
 
