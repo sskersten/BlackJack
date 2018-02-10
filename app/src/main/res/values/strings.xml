@@ -13,11 +13,12 @@
     <string name="add25">+$25</string>
     <string name="add50">+$50</string>
     <string name="moneySymbol">$</string>
+    <string name="letsGo">Let\'s Go!</string>
     <string name="valueForAce">Value for Ace Card?</string>
     <string name="aceSubtext">Note: Ace value will be automatically set to 1 if total score goes over 21.</string>
 
-    <string name="dealerTotal">DealerTotal: </string>
-    <string name="currentScore">Current Score: </string>
+    <string name="dealerTotal">DealerTotal:&#160;</string>
+    <string name="currentScore">Current Score:&#160;</string>
     <string name="currentBet">Current Bet: $</string>
     <string name="hit">hit</string>
     <string name="stand">stand</string>
@@ -30,5 +31,5 @@
     </string>
     <string name="backToMain">Back to Main Menu</string>
 
-
+    <string name="zero">0</string>
 </resources>

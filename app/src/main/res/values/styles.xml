@@ -19,4 +19,8 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="infoText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>
