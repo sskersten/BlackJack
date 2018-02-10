@@ -113,6 +113,7 @@ public class MainActivity_debug extends Activity {
         while(dealerScore < 17){
             giveCard("dealer");
         }
+        testWin();
     }
 
     private Bitmap generateCard(Vector<Bitmap> vec,String person){
@@ -255,6 +256,22 @@ public class MainActivity_debug extends Activity {
         dealerCards = 0;
         // init board
         initTable();
+    }
+
+    private void testWin(){
+        if(dealerScore > 21 || playerScore > dealerScore) {
+            personWin("player");
+            return;
+        }
+        if(playerScore > 21 || playerScore < dealerScore){
+            personWin("dealer");
+            return;
+        }
+    }
+
+    private void personWin(String person){
+        Toast.makeText(getApplicationContext(),person + " won!!!",Toast.LENGTH_SHORT).show();
+
     }
 
 }
