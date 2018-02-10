@@ -71,7 +71,7 @@ public class MainActivity_debug extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                standPlayer();
+                 standPlayer();
             }
         });
         b = findViewById(R.id.btn_reset);
@@ -105,10 +105,18 @@ public class MainActivity_debug extends Activity {
                 playerCards++;
             }
         }
+        Log.i("TAG","playerScore: " + playerScore + ", dealerScore: " + dealerScore);
     }
 
     private void standPlayer(){
-
+        // loop through the dealer drawing cards
+        // game ends now
+        while(dealerScore < 17){
+            giveCard("dealer");
+        }
+        revealDealerCard();
+        testWin();
+        gameOver = true;
     }
 
     private Bitmap generateCard(Vector<Bitmap> vec,String person){
@@ -251,6 +259,26 @@ public class MainActivity_debug extends Activity {
         dealerCards = 0;
         // init board
         initTable();
+    }
+
+    private void testWin(){
+        if(dealerScore > 21 || playerScore > dealerScore) {
+            personWin("player");
+            return;
+        }
+        if(playerScore > 21 || playerScore < dealerScore){
+            personWin("dealer");
+            return;
+        }
+    }
+
+    private void personWin(String person){
+        Toast.makeText(getApplicationContext(),person + " won!!!",Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void revealDealerCard(){
+        ((ImageView) findViewById(R.id.iv_table1)).setImageBitmap(dealersSecretCard);
     }
 
 }
