@@ -20,10 +20,16 @@ import java.util.Vector;
 public class MainActivity_debug extends Activity {
 
     private String [] cardNumbers = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
+    private String [] pointValues = {"2","3","4","5","6","7","8","9","10","10","10","10","A"};
     private String [] cardSuits = {"Sp","Di","Ht","Cb"};
+    private int [] dealerCardSlotIds = {R.id.iv_table1,R.id.iv_table2,R.id.iv_table3,R.id.iv_table4,R.id.iv_table5};
+    private int [] playerCardSlotIds = {R.id.iv_card1,R.id.iv_card2,R.id.iv_card3,R.id.iv_card4};
     Random random = new Random();
 
-    int handSum = 0;
+    int playerScore = 0;
+    int playerCards = 0;
+    int dealerScore = 0;
+    int dealerCards = 0;
     Vector<String> cardsInHand = new Vector<>();
     Vector<Bitmap> cardBitmaps = new Vector<>();
 
@@ -36,9 +42,12 @@ public class MainActivity_debug extends Activity {
 
         setButtons();
 
+
         cardBitmaps = makeSpriteSheet();
 
-        hitPlayer();
+        initTable();
+
+//        giveCard();
 
     }
 
@@ -53,7 +62,7 @@ public class MainActivity_debug extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hitPlayer();
+                giveCard("player");
             }
         });
         b = findViewById(R.id.btn_stand);
@@ -66,49 +75,33 @@ public class MainActivity_debug extends Activity {
     }
 
     // gives the player a card
-    private void hitPlayer(){
-        Log.i("TAG","msg");
-        TextView handTv = findViewById(R.id.tv_hand);
-        String handStr = handTv.getText().toString();
+    private void giveCard(String person){
 
-        // add new card to the table
-        handStr += generateCard(cardNumbers,cardSuits);
-        handTv.setText(handStr);
-        calcTotal();
-        ( (ImageView) findViewById(R.id.cardView)).setImageBitmap(generateCardImage(cardBitmaps));
-//        ( (ImageView) findViewById(R.id.cardView)).setImageBitmap(cardBitmaps.get(17));
+        Bitmap randCard = generateCard(cardBitmaps);
+
+        if(person.equals("dealer")){
+            if(dealerCards == 0){
+                ( (ImageView) findViewById(R.id.iv_table1)).setImageResource(R.drawable.card_back);
+                dealerCards++;
+
+            } else if (dealerCards < dealerCardSlotIds.length) {
+                ( (ImageView) findViewById(dealerCardSlotIds[dealerCards])).setImageBitmap(randCard);
+                dealerCards++;
+            }
+
+        } else if(person.equals("player")){
+            if(playerCards < playerCardSlotIds.length){
+                ( (ImageView) findViewById(playerCardSlotIds[playerCards])).setImageBitmap(randCard);
+                playerCards++;
+            }
+        }
     }
 
     private void standPlayer(){
 
     }
 
-    // generates a card based on two arrays of nums and suits
-    private String generateCard(String [] nums, String [] suits){
-
-        String str = "";
-
-        // random card number
-        String randCardNum = "";
-//        Log.i("TAG","random.nextInt() % nums.length + 1 : " + (random.nextInt( nums.length)));
-        randCardNum = nums[ random.nextInt(nums.length) ];
-
-        str += randCardNum;
-
-        // then random card face
-        String randCardSuit = "";
-        randCardSuit = suits[ random.nextInt(suits.length) ];
-
-        str += randCardSuit;
-
-        Log.i("TAG","str : " + str);
-
-        cardsInHand.add(str);
-
-        return str;
-    }
-
-    private Bitmap generateCardImage(Vector<Bitmap> vec){
+    private Bitmap generateCard(Vector<Bitmap> vec){
         int randInt = (random.nextInt(52));
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
@@ -139,7 +132,7 @@ public class MainActivity_debug extends Activity {
             total += addNum;
         }
 
-        ((TextView) findViewById(R.id.tv_total)).setText(total+"");
+//        ((TextView) findViewById(R.id.tv_total)).setText(total+"");
 
     }
 
@@ -170,5 +163,35 @@ public class MainActivity_debug extends Activity {
             vec.add(bitmap);
         }
         return vec;
+    }
+
+    private void initTable(){
+        // initialize the table to give the dealer 1 face down card and the player 2 face up cards
+
+        // set the the dealer handslot 1 to card back, and slot 2 to rand card
+        giveCard("dealer");
+        giveCard("dealer");
+
+        // set player hand slot 1 and 2 to rand card
+        giveCard("player");
+        giveCard("player");
+
+    }
+    private void updateScore(int i, String person){
+
+        int cardValue = Integer.parseInt(pointValues[i%pointValues.length]);
+
+        if(person.equals("dealer")){
+            // update the hidden Dealer score
+            dealerScore += cardValue;
+
+            //update the UI to reflect the observable dealer score(not including the first card.
+            ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerScore);
+
+        } else if(person.equals("player")) {
+            //update the handSum and update UI to reflect
+            playerScore += cardValue;
+            ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore);
+        }
     }
 }
