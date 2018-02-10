@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class MainActivity_debug extends Activity {
 
     int handSum = 0;
     Vector<String> cardsInHand = new Vector<>();
+    Vector<Bitmap> cardBitmaps = new Vector<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class MainActivity_debug extends Activity {
         setContentView(R.layout.activity_main_debug);
 
         setButtons();
+
+        cardBitmaps = makeSpriteSheet();
 
     }
 
@@ -69,6 +73,7 @@ public class MainActivity_debug extends Activity {
         handStr += generateCard(cardNumbers,cardSuits);
         handTv.setText(handStr);
         calcTotal();
+        ( (ImageView) findViewById(R.id.cardView)).setImageBitmap(generateCardImage(cardBitmaps));
     }
 
     private void standPlayer(){
@@ -100,6 +105,13 @@ public class MainActivity_debug extends Activity {
         return str;
     }
 
+    private Bitmap generateCardImage(Vector<Bitmap> vec){
+        int randInt = (random.nextInt(52) % 10);
+        Log.i("TAG","vec size : " + vec.size());
+        Log.i("TAG","randInt : " + randInt);
+        return vec.get(randInt);
+    }
+
     private void playerBusted(){
         Toast.makeText(getApplicationContext(), "text", Toast.LENGTH_SHORT);
     }
@@ -128,7 +140,7 @@ public class MainActivity_debug extends Activity {
 
     }
 
-    void makeSpriteSheet() {
+    private Vector<Bitmap> makeSpriteSheet() {
         int cardHeight = 83;
         int cardWidth = 57;
         int numberFramesInRows = 14;
@@ -143,6 +155,7 @@ public class MainActivity_debug extends Activity {
         for(int i = 0; i < totalFrames; i++){
             xStart = ( i % numberFramesInRows) * cardWidth;
             yStart = ( i / numberFramesInRows) * cardHeight;
+            Log.i("TAG","xStart : " + xStart + ", yStart : "+ yStart);
             Bitmap bitmap = Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(bitmap);
             Rect src = new Rect(xStart,yStart,xStart+cardWidth,yStart+cardHeight);
@@ -150,5 +163,6 @@ public class MainActivity_debug extends Activity {
             c.drawBitmap(cardSpriteSheet,src,dst,null);
             vec.add(bitmap);
         }
+        return vec;
     }
 }
