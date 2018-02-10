@@ -20,10 +20,10 @@ import java.util.Vector;
 public class MainActivity_debug extends Activity {
 
     private String [] cardNumbers = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
-    private String [] pointValues = {"2","3","4","5","6","7","8","9","10","10","10","10","A"};
+    private String [] pointValues = {"2","3","4","5","6","7","8","9","10","10","10","10","11"};
     private String [] cardSuits = {"Sp","Di","Ht","Cb"};
     private int [] dealerCardSlotIds = {R.id.iv_table1,R.id.iv_table2,R.id.iv_table3,R.id.iv_table4,R.id.iv_table5};
-    private int [] playerCardSlotIds = {R.id.iv_card1,R.id.iv_card2,R.id.iv_card3,R.id.iv_card4};
+    private int [] playerCardSlotIds = {R.id.iv_card1,R.id.iv_card2,R.id.iv_card3,R.id.iv_card4,R.id.iv_card5,R.id.iv_card6,R.id.iv_card7,R.id.iv_card8};
     Random random = new Random();
 
     int playerScore = 0;
@@ -32,6 +32,9 @@ public class MainActivity_debug extends Activity {
     int dealerCards = 0;
     Vector<String> cardsInHand = new Vector<>();
     Vector<Bitmap> cardBitmaps = new Vector<>();
+    Bitmap dealersSecretCard;
+
+    private boolean gameOver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,9 @@ public class MainActivity_debug extends Activity {
 
         setButtons();
 
-
         cardBitmaps = makeSpriteSheet();
 
-        initTable();
+        resetGame();
 
 //        giveCard();
 
@@ -72,6 +74,13 @@ public class MainActivity_debug extends Activity {
                 standPlayer();
             }
         });
+        b = findViewById(R.id.btn_reset);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetGame();
+            }
+        });
     }
 
     // gives the player a card
@@ -82,6 +91,7 @@ public class MainActivity_debug extends Activity {
         if(person.equals("dealer")){
             if(dealerCards == 0){
                 ( (ImageView) findViewById(R.id.iv_table1)).setImageResource(R.drawable.card_back);
+                dealersSecretCard = randCard;
                 dealerCards++;
 
             } else if (dealerCards < dealerCardSlotIds.length) {
@@ -106,7 +116,10 @@ public class MainActivity_debug extends Activity {
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
 
-        updateScore(randInt,person);
+        if(dealerCards > 0 ){
+            updateScore(randInt, person);
+        }
+
 
         return vec.get(randInt);
     }
@@ -199,6 +212,45 @@ public class MainActivity_debug extends Activity {
             playerScore += cardValue;
             ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
         }
+
+        testBust();
+
+    }
+    private void testBust(){
+        if (playerScore > 21){
+            Log.i("MainAct","busted");
+            gameOver = true;
+            Toast.makeText(getApplicationContext(),"Player 1 busted",Toast.LENGTH_LONG).show();
+        }
+        if (dealerScore > 21){
+            Log.i("MainAct","busted");
+            gameOver = true;
+            Toast.makeText(getApplicationContext(),"The Dealer busted",Toast.LENGTH_LONG).show();
+        }
+
+    }
+    private void resetGame(){
+        gameOver = true;
+
+        double ampFactor = 3.52;
+        int cardHeight = (int)((332/4) * ampFactor);
+        int cardWidth = (int)(((800 - 800*((float)(1/14))) / 14) * ampFactor);
+        // clear all slots
+        for(int i = 0; i < dealerCardSlotIds.length; i++){
+            // set to blank bitmaps
+            ( ( ImageView ) findViewById(dealerCardSlotIds[i])).setImageBitmap(Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888));
+        }
+        for(int i = 0; i < playerCardSlotIds.length; i++){
+            ( ( ImageView ) findViewById(playerCardSlotIds[i])).setImageBitmap(Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888));
+            //
+        }
+
+        playerScore = 0;
+        playerCards = 0;
+        dealerScore = 0;
+        dealerCards = 0;
+        // init board
+        initTable();
     }
 
 }

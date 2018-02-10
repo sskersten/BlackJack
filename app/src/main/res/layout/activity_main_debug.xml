@@ -124,10 +124,10 @@
         android:layout_width="57dp"
         android:layout_height="83dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card5"
         app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -136,10 +136,10 @@
         android:layout_width="57dp"
         android:layout_height="83dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card6"
         app:layout_constraintStart_toEndOf="@+id/iv_card1" />
 
 
@@ -148,10 +148,10 @@
         android:layout_width="57dp"
         android:layout_height="83dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card7"
         app:layout_constraintStart_toEndOf="@+id/iv_card2" />
 
     <ImageView
@@ -159,12 +159,54 @@
         android:layout_width="57dp"
         android:layout_height="83dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card8"
+        app:layout_constraintStart_toEndOf="@+id/iv_card3" />
+
+    <ImageView
+        android:id="@+id/iv_card5"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_card6"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_card3" />
+        app:layout_constraintStart_toEndOf="@+id/iv_card5" />
 
+    <ImageView
+        android:id="@+id/iv_card7"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_card6" />
+
+    <ImageView
+        android:id="@+id/iv_card8"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_card7" />
     <Button
         android:id="@+id/toNormalMain_button"
         android:layout_width="wrap_content"
@@ -199,6 +241,18 @@
         android:text="*dealer-score*"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_dealerScoreTitle" />
+
+    <Button
+        android:id="@+id/btn_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Reset"
+        app:layout_constraintBottom_toTopOf="@+id/toNormalMain_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
