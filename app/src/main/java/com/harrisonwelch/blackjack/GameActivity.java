@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends Activity {
     private Wallet wallet;
+    private double currentBet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,37 +17,73 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
 
         wallet = new Wallet(1000);
+        TextView currentMoney = findViewById(R.id.currentMoney_textview);
+        currentMoney.setText(wallet.toString());
 
-        AddMoneyListener addMoneyListener = new AddMoneyListener();
-        int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button};
+        SetBetListener setBetListener = new SetBetListener();
+        int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button};
         for (int id : addBetButtonIds){
-            findViewById(id).setOnClickListener(addMoneyListener);
+            findViewById(id).setOnClickListener(setBetListener);
         }
 
-        
     }
 
     //Makes the +5, +10, etc buttons work.
-    class AddMoneyListener implements View.OnClickListener{
-        EditText betAmount_editText;
+    class SetBetListener implements View.OnClickListener{
+        EditText betAmount_editText;    //EditText in-menu that shows what user wants to bet
+        TextView betAmount_textView;    //TextView in-game that shows what user HAS bet
+        Toast errorToast;
 
-        AddMoneyListener(){
+
+        SetBetListener(){
             betAmount_editText = findViewById(R.id.betAmount_editText);
+            betAmount_textView = findViewById(R.id.bet_textview);
         }
 
         @Override
         public void onClick(View view) {
+            //parse amount they're currently betting
             double betAmount;   //value being bet
             String betText = betAmount_editText.getText().toString();
             if (betText.equals("")) {
                 betAmount = 0;
             } else {
-               betAmount = Double.parseDouble(betAmount_editText.getText().toString());
+                betAmount = Double.parseDouble(betAmount_editText.getText().toString());
             }
 
+            //if user pressed ok, set up bet amount. Otherwise, they pressed add button, so add to
+            // the current bet amount.
+            if (view.getId() == R.id.betOk_button){
+                setBet(betAmount);
+            } else {
+                addToBetAmount(view, betAmount);
+            }
+        }
+
+        private void setBet(double betAmount){
+            //set cash to max they have if the amount input is over what they currently have
+            if (betAmount > wallet.getCash()){
+                betAmount_editText.setText(wallet.toString());
+                showToast(R.string.overMoneyHeldError);
+                return;
+            }
+
+            if (betAmount <= 0){
+                showToast(R.string.notEnoughMoneyBetError);
+                return;
+            }
+
+            wallet.removeCash(betAmount);
+            currentBet = betAmount;
+            betAmount_textView.setText(Wallet.convertDoubleToCashString(betAmount));
+            findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+        }
+
+        //called when any of the Add buttons is pressed. Adds to editText of current bet amount.
+        private void addToBetAmount(View view, double betAmount){
             //check that we're not at max money
             if (betAmount >= wallet.getCash()){
-                Toast.makeText(getApplicationContext(), R.string.overMoneyHeldError, Toast.LENGTH_SHORT).show();
+                showToast(R.string.overMoneyHeldError);
                 return;
             }
 
@@ -63,7 +101,17 @@ public class GameActivity extends Activity {
                 betAmount = wallet.getCash();
             }
 
-            betAmount_editText.setText(Double.toString(betAmount));
+
+            betAmount_editText.setText(Wallet.convertDoubleToCashString(betAmount));
         }
-    } //end of AddMoneyListener
+
+        //if a toast is being displayed, cancels that one and displays whatever the new one is.
+        private void showToast(int messageId){
+            if (errorToast != null){
+                errorToast.cancel();
+            }
+            errorToast = Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT);
+            errorToast.show();
+        }
+    } //end of SetBetListener
 }
