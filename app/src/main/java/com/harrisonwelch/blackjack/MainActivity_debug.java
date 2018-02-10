@@ -38,6 +38,8 @@ public class MainActivity_debug extends Activity {
 
         cardBitmaps = makeSpriteSheet();
 
+        hitPlayer();
+
     }
 
     private void setButtons(){
@@ -74,6 +76,7 @@ public class MainActivity_debug extends Activity {
         handTv.setText(handStr);
         calcTotal();
         ( (ImageView) findViewById(R.id.cardView)).setImageBitmap(generateCardImage(cardBitmaps));
+//        ( (ImageView) findViewById(R.id.cardView)).setImageBitmap(cardBitmaps.get(17));
     }
 
     private void standPlayer(){
@@ -106,7 +109,7 @@ public class MainActivity_debug extends Activity {
     }
 
     private Bitmap generateCardImage(Vector<Bitmap> vec){
-        int randInt = (random.nextInt(52) % 10);
+        int randInt = (random.nextInt(52));
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
         return vec.get(randInt);
@@ -141,9 +144,12 @@ public class MainActivity_debug extends Activity {
     }
 
     private Vector<Bitmap> makeSpriteSheet() {
-        int cardHeight = 83;
-        int cardWidth = 57;
-        int numberFramesInRows = 14;
+
+        double ampFactor = 3.52;
+        // image size 800*332
+        int cardHeight = (int)((332/4) * ampFactor);
+        int cardWidth = (int)(((800 - 800*((float)(1/14))) / 14) * ampFactor);
+        int numberFramesInRows = 13;
         int totalFrames = 54;
 
         int xStart = 0;
