@@ -28,7 +28,8 @@ public class MainActivity_debug extends Activity {
 
     int playerScore = 0;
     int playerCards = 0;
-    int dealerScore = 0;
+    int dealerHiddenScore = 0;
+    int dealerVisibleScore = 0;
     int dealerCards = 0;
     Vector<String> cardsInHand = new Vector<>();
     Vector<Bitmap> cardBitmaps = new Vector<>();
@@ -105,13 +106,13 @@ public class MainActivity_debug extends Activity {
                 playerCards++;
             }
         }
-        Log.i("TAG","playerScore: " + playerScore + ", dealerScore: " + dealerScore);
+        Log.i("TAG","playerScore: " + playerScore + ", dealerHiddenScore: " + dealerHiddenScore);
     }
 
     private void standPlayer(){
         // loop through the dealer drawing cards
         // game ends now
-        while(dealerScore < 17){
+        while(dealerHiddenScore < 17){
             giveCard("dealer");
         }
         revealDealerCard();
@@ -124,9 +125,7 @@ public class MainActivity_debug extends Activity {
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
 
-        if(dealerCards > 0 ){
-            updateScore(randInt, person);
-        }
+        updateScore(randInt, person);
 
 
         return vec.get(randInt);
@@ -210,10 +209,14 @@ public class MainActivity_debug extends Activity {
 
         if(person.equals("dealer")){
             // update the hidden Dealer score
-            dealerScore += cardValue;
+
+            dealerHiddenScore += cardValue;
+            if(dealerCards > 0){
+                dealerVisibleScore += cardValue;
+            }
 
             //update the UI to reflect the observable dealer score(not including the first card.
-            ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerScore+"");
+            ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerVisibleScore +"");
 
         } else if(person.equals("player")) {
             //update the handSum and update UI to reflect
@@ -230,7 +233,7 @@ public class MainActivity_debug extends Activity {
             gameOver = true;
             Toast.makeText(getApplicationContext(),"Player 1 busted",Toast.LENGTH_LONG).show();
         }
-        if (dealerScore > 21){
+        if (dealerHiddenScore > 21){
             Log.i("MainAct","busted");
             gameOver = true;
             Toast.makeText(getApplicationContext(),"The Dealer busted",Toast.LENGTH_LONG).show();
@@ -255,18 +258,18 @@ public class MainActivity_debug extends Activity {
 
         playerScore = 0;
         playerCards = 0;
-        dealerScore = 0;
+        dealerHiddenScore = 0;
         dealerCards = 0;
         // init board
         initTable();
     }
 
     private void testWin(){
-        if(dealerScore > 21 || playerScore > dealerScore) {
+        if(dealerHiddenScore > 21 || playerScore > dealerHiddenScore) {
             personWin("player");
             return;
         }
-        if(playerScore > 21 || playerScore < dealerScore){
+        if(playerScore > 21 || playerScore < dealerHiddenScore){
             personWin("dealer");
             return;
         }
@@ -278,7 +281,12 @@ public class MainActivity_debug extends Activity {
     }
 
     private void revealDealerCard(){
+        // show the secret card
         ((ImageView) findViewById(R.id.iv_table1)).setImageBitmap(dealersSecretCard);
+
+        // replace the visible with hidden score
+        ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerHiddenScore +"");
+
     }
 
 }
