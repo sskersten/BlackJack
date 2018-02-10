@@ -108,7 +108,11 @@ public class MainActivity_debug extends Activity {
     }
 
     private void standPlayer(){
-
+        // loop through the dealer drawing cards
+        // game ends now
+        while(dealerScore < 17){
+            giveCard("dealer");
+        }
     }
 
     private Bitmap generateCard(Vector<Bitmap> vec,String person){
