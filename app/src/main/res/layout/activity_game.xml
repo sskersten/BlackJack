@@ -239,7 +239,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/iv_card7"
+                android:id="@+id/iv_card6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -248,7 +248,7 @@
                 android:src="@drawable/nicholstare" />
 
             <ImageView
-                android:id="@+id/iv_card6"
+                android:id="@+id/iv_card7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

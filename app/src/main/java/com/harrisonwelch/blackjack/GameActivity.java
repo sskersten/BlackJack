@@ -27,8 +27,8 @@ public class GameActivity extends Activity {
     private String [] cardNumbers = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
     private String [] pointValues = {"2","3","4","5","6","7","8","9","10","10","10","10","11"};
     private String [] cardSuits = {"Sp","Di","Ht","Cb"};
-    private int [] dealerCardSlotIds = {R.id.iv_table1,R.id.iv_table2,R.id.iv_table3,R.id.iv_table4,R.id.iv_table5};
-    private int [] playerCardSlotIds = {R.id.iv_card1,R.id.iv_card2,R.id.iv_card3,R.id.iv_card4,R.id.iv_card5,R.id.iv_card6,R.id.iv_card7,R.id.iv_card8};
+    private int [] dealerCardSlotIds = {R.id.iv_table1,R.id.iv_table2,R.id.iv_table3,R.id.iv_table4,R.id.iv_table5,R.id.iv_table6,R.id.iv_table7,R.id.iv_table8,R.id.iv_table9,R.id.iv_table10};
+    private int [] playerCardSlotIds = {R.id.iv_card1,R.id.iv_card2,R.id.iv_card3,R.id.iv_card4,R.id.iv_card5,R.id.iv_card6,R.id.iv_card7,R.id.iv_card8,R.id.iv_card9,R.id.iv_card10};
     Random random = new Random();
 
     int playerScore = 0;
