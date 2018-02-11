@@ -152,11 +152,9 @@
         android:id="@+id/iv_card1"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toTopOf="@+id/iv_card5"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card6"
         app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -164,11 +162,9 @@
         android:id="@+id/iv_card2"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="12dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toTopOf="@+id/iv_card6"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card7"
         app:layout_constraintStart_toEndOf="@+id/iv_card1" />
 
 
@@ -176,18 +172,15 @@
         android:id="@+id/iv_card3"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="20dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
-        app:layout_constraintBottom_toTopOf="@+id/iv_card7"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card8"
         app:layout_constraintStart_toEndOf="@+id/iv_card2" />
 
     <ImageView
         android:id="@+id/iv_card4"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
         app:layout_constraintBottom_toTopOf="@+id/iv_card8"
@@ -197,30 +190,24 @@
         android:id="@+id/iv_card5"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toTopOf="@+id/iv_card10"
+        app:layout_constraintStart_toEndOf="@+id/iv_card4" />
+
+    <ImageView
+        android:id="@+id/iv_card6"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_card6"
-        android:layout_width="57dp"
-        android:layout_height="83dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/border"
-        android:src="@drawable/cards"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_card5" />
-
-    <ImageView
         android:id="@+id/iv_card7"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -230,12 +217,28 @@
         android:id="@+id/iv_card8"
         android:layout_width="57dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
         android:background="@drawable/border"
         android:src="@drawable/cards"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_card7" />
+
+    <ImageView
+        android:id="@+id/iv_card9"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_card8" />
+
+    <ImageView
+        android:id="@+id/iv_card10"
+        android:layout_width="57dp"
+        android:layout_height="83dp"
+        android:background="@drawable/border"
+        android:src="@drawable/cards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_card9" />
     <Button
         android:id="@+id/toNormalMain_button"
         android:layout_width="wrap_content"

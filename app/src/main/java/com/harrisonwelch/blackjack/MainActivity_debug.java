@@ -31,6 +31,8 @@ public class MainActivity_debug extends Activity {
     int dealerHiddenScore = 0;
     int dealerVisibleScore = 0;
     int dealerCards = 0;
+    boolean playerHasAce = false;
+    boolean dealerHasAce = false;
     Vector<String> cardsInHand = new Vector<>();
     Vector<Bitmap> cardBitmaps = new Vector<>();
     Bitmap dealersSecretCard;
@@ -207,6 +209,14 @@ public class MainActivity_debug extends Activity {
 
         int cardValue = Integer.parseInt(pointValues[i%pointValues.length]);
 
+        if(cardValue == 11){
+            if(person.equals("player")){
+                playerHasAce = true;
+            } else if (person.equals("dealer")) {
+                dealerHasAce = true;
+            }
+        }
+
         if(person.equals("dealer")){
             // update the hidden Dealer score
 
@@ -224,8 +234,19 @@ public class MainActivity_debug extends Activity {
             ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
         }
 
+        if(playerHasAce && isBusted("player")) playerScore -= 10;
+        if(dealerHasAce && isBusted("dealer")){
+            dealerVisibleScore -= 10;
+            dealerHiddenScore -= 10;
+        }
+
         testBust();
 
+    }
+    private boolean isBusted(String person){
+        if(person.equals("player")) return (playerScore > 21);
+        if(person.equals("dealer")) return (playerScore > 21);
+        return false;
     }
     private void testBust(){
         if (playerScore > 21){
