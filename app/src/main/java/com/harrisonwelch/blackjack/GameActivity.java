@@ -22,6 +22,7 @@ public class GameActivity extends Activity {
         TextView currentMoney = findViewById(R.id.currentMoney_textview);
         currentMoney.setText(wallet.toString());
 
+        findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
         SetBetListener setBetListener = new SetBetListener();
         int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button};
         for (int id : addBetButtonIds){
@@ -29,7 +30,22 @@ public class GameActivity extends Activity {
         }
 
 
+        findViewById(R.id.hit_button).setOnClickListener((View view) ->{
+            doGameEnd(true);
+        });
 
+    }
+
+    private void doGameEnd(boolean isWin){
+        //give money to the player if they won
+        if (isWin){
+            wallet.addCash(currentBet * 2);
+        }
+
+
+        Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+        findViewById(R.id.bet_linearLayout).startAnimation(fadeIn);
+        findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
     }
 
     //Makes the +5, +10, etc buttons work.
@@ -80,8 +96,8 @@ public class GameActivity extends Activity {
             wallet.removeCash(betAmount);
             currentBet = betAmount;
             betAmount_textView.setText(Wallet.convertDoubleToCashString(betAmount));
-            Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
-            findViewById(R.id.bet_linearLayout).startAnimation(fadeIn);
+            Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
+            findViewById(R.id.bet_linearLayout).startAnimation(fadeOut);
             findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
         }
 
