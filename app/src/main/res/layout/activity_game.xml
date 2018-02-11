@@ -53,7 +53,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table2"
@@ -62,7 +63,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table3"
@@ -71,7 +73,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table4"
@@ -80,7 +83,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table5"
@@ -89,7 +93,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
         </TableRow>
 
         <TableRow
@@ -104,7 +109,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table7"
@@ -113,7 +119,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table8"
@@ -122,7 +129,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table9"
@@ -131,7 +139,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_table10"
@@ -140,7 +149,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
         </TableRow>
     </TableLayout>
 
@@ -194,7 +204,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card2"
@@ -203,7 +214,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card3"
@@ -212,7 +224,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card4"
@@ -221,7 +234,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card5"
@@ -230,7 +244,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
         </TableRow>
 
         <TableRow
@@ -245,7 +260,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card7"
@@ -254,7 +270,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border"/>
 
             <ImageView
                 android:id="@+id/iv_card8"
@@ -263,7 +280,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card9"
@@ -272,7 +290,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
             <ImageView
                 android:id="@+id/iv_card10"
@@ -281,7 +300,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/exampleCard"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nicholstare" />
+                android:src="@drawable/nicholstare"
+                android:background="@drawable/border" />
 
         </TableRow>
 
@@ -365,28 +385,30 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_stand"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/stand"
-        app:layout_constraintBottom_toTopOf="@+id/double_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-    <Button
         android:id="@+id/btn_reset"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="136dp"
         android:layout_marginTop="8dp"
-        android:text="RESET"
+        android:text="Reset"
         app:layout_constraintBottom_toTopOf="@+id/double_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_stand"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Stand"
+        app:layout_constraintBottom_toTopOf="@+id/double_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
         android:id="@+id/bet_linearLayout"

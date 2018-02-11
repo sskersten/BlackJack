@@ -2,6 +2,7 @@ package com.harrisonwelch.blackjack;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.util.Random;
 import java.util.Vector;
 
@@ -38,6 +40,8 @@ public class GameActivity extends Activity {
     int dealerCards = 0;
     boolean playerHasAce = false;
     boolean dealerHasAce = false;
+    boolean isPlayerAceSubracted = false;
+    boolean isDealerAceSubracted = false;
     Vector<String> cardsInHand = new Vector<>();
     Vector<Bitmap> cardBitmaps = new Vector<>();
     Bitmap dealersSecretCard;
@@ -285,6 +289,18 @@ public class GameActivity extends Activity {
         int yStart = 0;
         Vector<Bitmap> vec = new Vector<Bitmap>();
 
+        AssetManager assetManager = getApplicationContext().getAssets();
+        String filePath = "../../../res/assets/cards_full.png";
+        InputStream inputStream;
+        Bitmap bitmapStream = null;
+        try {
+            inputStream = assetManager.open(filePath);
+            Log.i("makeSpriteSheet","(YES) found the file " + filePath);
+        } catch (Exception e){
+            Log.i("makeSpriteSheet","(NO) Could not find file " + filePath);
+        }
+
+
         Bitmap cardSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.cards_full);
 
         for(int i = 0; i < totalFrames; i++){
@@ -320,7 +336,9 @@ public class GameActivity extends Activity {
 
         int cardValue = Integer.parseInt(pointValues[i%pointValues.length]);
 
-        if(cardValue == 11){
+        if( isPlayerAceSubracted || isDealerAceSubracted ){
+            cardValue = 1;
+        }else if(cardValue == 11){
             if(person.equals("player")){
                 playerHasAce = true;
             } else if (person.equals("dealer")) {
@@ -345,8 +363,12 @@ public class GameActivity extends Activity {
             ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
         }
 
-        if(playerHasAce && isBusted("player")) playerScore -= 10;
-        if(dealerHasAce && isBusted("dealer")){
+        if(playerHasAce && isBusted("player") && !isPlayerAceSubracted) {
+            isPlayerAceSubracted = true;
+            playerScore -= 10;
+        }
+        if(dealerHasAce && isBusted("dealer") && !isDealerAceSubracted){
+            isPlayerAceSubracted = true;
             dealerVisibleScore -= 10;
             dealerHiddenScore -= 10;
         }
