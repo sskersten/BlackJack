@@ -1,7 +1,7 @@
 package com.harrisonwelch.blackjack;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,11 +18,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class GameActivity extends Activity {
+    private static final String BLACK_JACK_FILE = "blackJack.json";
+    private static final String TAG_GAME_ACTIVITY = "GAME_ACT";
+    private static final String JSON_PLAYER_CARDS = "player_cards";
+    private static final String JSON_DEALER_CARDS = "dealer_cards";
+
+    private JSONObject fileJSON = new JSONObject();
     private Wallet wallet;
     private double currentBet;
 
@@ -45,6 +63,9 @@ public class GameActivity extends Activity {
     Vector<String> cardsInHand = new Vector<>();
     Vector<Bitmap> cardBitmaps = new Vector<>();
     Bitmap dealersSecretCard;
+
+    Vector<Integer> cardIndexesPlayerHand = new Vector<>();
+    Vector<Integer> cardIndexesInDealerHand = new Vector<>();
 
     private boolean gameOver = false;
 
@@ -74,6 +95,20 @@ public class GameActivity extends Activity {
 
         resetGame();
 
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG_GAME_ACTIVITY,"onResume()");
+        readFile();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i(TAG_GAME_ACTIVITY,"onPause()");
+        writeFile();
+        super.onPause();
     }
 
     private void doGameEnd(boolean isWin){
@@ -241,6 +276,13 @@ public class GameActivity extends Activity {
         int randInt = (random.nextInt(52));
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
+
+        // update the file R/W stuff
+        if(person.equals("player")){
+            cardIndexesPlayerHand.add(randInt);
+        } else if(person.equals("dealer")){
+            cardIndexesInDealerHand.add(randInt);
+        }
 
         updateScore(randInt, person);
 
@@ -415,6 +457,8 @@ public class GameActivity extends Activity {
         dealerHiddenScore = 0;
         dealerVisibleScore = 0;
         dealerCards = 0;
+        cardIndexesPlayerHand.clear();
+        cardIndexesInDealerHand.clear();
         // init board
         initTable();
     }
@@ -442,6 +486,99 @@ public class GameActivity extends Activity {
         // replace the visible with hidden score
         ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerHiddenScore +"");
 
+    }
+
+    private void writeFile(){
+        Log.i(TAG_GAME_ACTIVITY,"writeFile");
+        try {
+            FileOutputStream fos = openFileOutput(BLACK_JACK_FILE, Context.MODE_PRIVATE);
+            OutputStreamWriter opsw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(opsw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            try{
+                fileJSON.put(JSON_PLAYER_CARDS, cardIndexesPlayerHand);
+                fileJSON.put(JSON_DEALER_CARDS, cardIndexesInDealerHand);
+                Log.i(TAG_GAME_ACTIVITY,"fileJSON write: " + fileJSON.toString());
+            } catch (JSONException e1) {
+                Log.i(TAG_GAME_ACTIVITY,"error building JSON");
+            }
+
+            pw.println(fileJSON.toString());
+            pw.close();
+            Log.i(TAG_GAME_ACTIVITY, "fileJSON done printing the file");
+
+
+        } catch (FileNotFoundException e){
+            Log.i("GameAct","BLACK_JACK_FILE found found.");
+        }
+    }
+
+    private void readFile(){
+        Log.i(TAG_GAME_ACTIVITY,"readFile");
+        String str = "";
+
+        try {
+            FileInputStream fis = openFileInput(BLACK_JACK_FILE);
+            Scanner scanner = new Scanner(fis);
+            while(scanner.hasNext()){
+                str += scanner.nextLine();
+                Log.i(TAG_GAME_ACTIVITY,"fileJSON read : '" + str +"'");
+            }
+
+            fileJSON = new JSONObject(str);
+
+            Object arr = fileJSON.get(JSON_PLAYER_CARDS);
+            Object arr2 = fileJSON.get(JSON_DEALER_CARDS);
+
+            Vector<Integer> vecPlayerCards = stringToVectorInt((String) fileJSON.get(JSON_PLAYER_CARDS));
+            Vector<Integer> vecDealerCards = stringToVectorInt((String) fileJSON.get(JSON_DEALER_CARDS));
+
+            Log.i(TAG_GAME_ACTIVITY,"arr : " + arr);
+            Log.i(TAG_GAME_ACTIVITY,"arr2 : " + arr2);
+
+            for(int i = 0; i < vecPlayerCards.size() && i < vecDealerCards.size(); i++){
+                Log.i(TAG_GAME_ACTIVITY, "vecPlayerCards.get(i) : " + vecPlayerCards.get(i));
+                Log.i(TAG_GAME_ACTIVITY, "vecDealerCards.get(i) : " + vecDealerCards.get(i));
+            }
+
+            if (vecPlayerCards.size() > 0) fillTableFromIds(vecPlayerCards, "person");
+            if (vecDealerCards.size() > 0) fillTableFromIds(vecDealerCards, "dealer");
+
+            Log.i(TAG_GAME_ACTIVITY, "fileJSON (read in coverted) : " + fileJSON);
+
+            Log.i(TAG_GAME_ACTIVITY,"ge" );
+        } catch (FileNotFoundException e) {
+            Log.i(TAG_GAME_ACTIVITY,"error readFile");
+            e.printStackTrace();
+        } catch (JSONException je){
+            Log.i(TAG_GAME_ACTIVITY,"error JSON conversion");
+        }
+
+    }
+
+    private Vector<Integer> stringToVectorInt(String input){
+        Vector<Integer> output = new Vector<>();
+
+        String[] strings = input.split("\\[|, |\\]");
+
+        // don't do the first one
+        for(int i = 1; i < strings.length; i++){
+            output.add(Integer.parseInt(strings[i]));
+        }
+
+        return output;
+    }
+
+    private void fillTableFromIds(Vector<Integer> cardIndexes, String person){
+        Log.i(TAG_GAME_ACTIVITY, "cardIndexes : " + cardIndexes + ", person : " + person);
+        for(int i = 0; i < cardIndexes.size(); i++){
+            if(person.equals("player")) {
+                ((ImageView) findViewById(playerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(i));
+            } else if (person.equals("dealer")) {
+                ((ImageView) findViewById(dealerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(i));
+            }
+        }
     }
 
 }
