@@ -101,7 +101,6 @@ public class GameActivity extends Activity {
         boolean enabled = findViewById(R.id.btn_hit).isEnabled();
         findViewById(R.id.btn_hit).setEnabled(!enabled);
         findViewById(R.id.btn_stand).setEnabled(!enabled);
-        findViewById(R.id.double_button).setEnabled(!enabled);
         findViewById(R.id.updateBet_button).setEnabled(enabled);
         findViewById(R.id.btn_reset).setEnabled(enabled);
 
