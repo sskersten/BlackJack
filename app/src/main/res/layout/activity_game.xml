@@ -373,7 +373,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:text="@string/doubleBtn"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_stand"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_hit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_stand" />
 
@@ -393,10 +393,11 @@
         android:id="@+id/btn_stand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="24dp"
         android:text="Stand"
-        app:layout_constraintStart_toEndOf="@+id/btn_hit"
-        tools:layout_editor_absoluteY="399dp" />
+        app:layout_constraintBottom_toTopOf="@+id/updateBet_button"
+        app:layout_constraintStart_toEndOf="@+id/btn_hit" />
 
     <LinearLayout
         android:id="@+id/bet_linearLayout"

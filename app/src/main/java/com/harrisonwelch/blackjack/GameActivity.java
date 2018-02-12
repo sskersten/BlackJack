@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,16 +58,19 @@ public class GameActivity extends Activity {
         TextView currentMoney = findViewById(R.id.currentMoney_textview);
         currentMoney.setText(wallet.toString());
 
-        findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
+        //Setting up betting
+        findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
         SetBetListener setBetListener = new SetBetListener();
-        int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button};
+        int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button, R.id.updateBet_button};
         for (int id : addBetButtonIds){
             findViewById(id).setOnClickListener(setBetListener);
         }
 
+        /*
         findViewById(R.id.hit_button).setOnClickListener((View view) ->{
             doGameEnd(true);
         });
+*/
 
         setButtons();
 
@@ -79,44 +83,69 @@ public class GameActivity extends Activity {
     private void doGameEnd(boolean isWin){
         //give money to the player if they won
         if (isWin){
-            wallet.addCash(currentBet * 2);
+            wallet.addCash(currentBet);
+        } else {
+            wallet.removeCash(currentBet);
         }
 
 
-        Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
-        findViewById(R.id.bet_linearLayout).startAnimation(fadeIn);
-        findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
+
     }
 
     //Makes the +5, +10, etc buttons work.
     class SetBetListener implements View.OnClickListener{
-        EditText betAmount_editText;    //EditText in-menu that shows what user wants to bet
-        TextView betAmount_textView;    //TextView in-game that shows what user HAS bet
-        Toast errorToast;
-
+        private EditText betAmount_editText;    //EditText in-menu that shows what user wants to bet
+        private TextView betAmount_textView;    //TextView in-game that shows what user HAS bet
+        private Toast errorToast;
+        private boolean betMenuShown;
 
         SetBetListener(){
             betAmount_editText = findViewById(R.id.betAmount_editText);
             betAmount_textView = findViewById(R.id.bet_textview);
+            betMenuShown = false;
         }
 
         @Override
         public void onClick(View view) {
-            //parse amount they're currently betting
-            double betAmount;   //value being bet
-            String betText = betAmount_editText.getText().toString();
-            if (betText.equals("")) {
-                betAmount = 0;
+            if (view.getId() == R.id.updateBet_button){
+                toggleBettingMenu();
+                return;
             } else {
-                betAmount = Double.parseDouble(betAmount_editText.getText().toString());
-            }
 
-            //if user pressed ok, set up bet amount. Otherwise, they pressed add button, so add to
-            // the current bet amount.
-            if (view.getId() == R.id.betOk_button){
-                setBet(betAmount);
+                //parse amount they're currently betting
+                double betAmount;   //value being bet
+                String betText = betAmount_editText.getText().toString();
+                if (betText.equals("")) {
+                    betAmount = 0;
+                } else {
+                    betAmount = Double.parseDouble(betAmount_editText.getText().toString());
+                }
+
+                //if user pressed ok, set up bet amount. Otherwise, they pressed add button, so add to
+                // the current bet amount.
+                if (view.getId() == R.id.betOk_button) {
+                    setBet(betAmount);
+                } else {
+                    addToBetAmount(view, betAmount);
+                }
+            }
+        }
+
+        private void toggleBettingMenu(){
+            LinearLayout betMenu = findViewById(R.id.bet_linearLayout);
+            if (betMenuShown) {
+                Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
+                findViewById(R.id.bet_linearLayout).startAnimation(fadeOut);
+                findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+                betMenuShown = false;
             } else {
-                addToBetAmount(view, betAmount);
+
+                Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+                betMenu.startAnimation(fadeIn);
+                findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
+                TextView currentMoney = findViewById(R.id.currentMoney_textview);
+                currentMoney.setText(wallet.toString());
+                betMenuShown = true;
             }
         }
 
@@ -133,12 +162,9 @@ public class GameActivity extends Activity {
                 return;
             }
 
-            wallet.removeCash(betAmount);
             currentBet = betAmount;
             betAmount_textView.setText(Wallet.convertDoubleToCashString(betAmount));
-            Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
-            findViewById(R.id.bet_linearLayout).startAnimation(fadeOut);
-            findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+            toggleBettingMenu();
         }
 
         //called when any of the Add buttons is pressed. Adds to editText of current bet amount.
