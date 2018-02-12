@@ -27,20 +27,12 @@ public class MainActivity extends Activity{
             }
         });
 
-
         findViewById(R.id.howToPlay_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = "https://en.wikipedia.org/wiki/Blackjack";
                 Uri uri = Uri.parse(url);
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
-            }
-        });
-
-        findViewById(R.id.options_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Not done yet!", Toast.LENGTH_SHORT).show();
             }
         });
 
