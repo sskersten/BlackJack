@@ -59,6 +59,9 @@ public class GameActivity extends Activity {
         currentMoney.setText(wallet.toString());
 
         //Setting up betting
+        currentBet = 5;
+        TextView currentBetValue = findViewById(R.id.bet_textview);
+        currentBetValue.setText(Wallet.convertDoubleToCashString(currentBet));
         findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
         SetBetListener setBetListener = new SetBetListener();
         int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button, R.id.updateBet_button};
@@ -88,9 +91,24 @@ public class GameActivity extends Activity {
             wallet.removeCash(currentBet);
         }
 
-
+        //disable hit, stand buttons. enable bet, new match buttons.
+        toggleButtons();
 
     }
+
+    //reverses current state of all buttons.
+    private void toggleButtons(){
+        boolean enabled = findViewById(R.id.btn_hit).isEnabled();
+        findViewById(R.id.btn_hit).setEnabled(!enabled);
+        findViewById(R.id.btn_stand).setEnabled(!enabled);
+        findViewById(R.id.double_button).setEnabled(!enabled);
+        findViewById(R.id.updateBet_button).setEnabled(enabled);
+        findViewById(R.id.btn_reset).setEnabled(enabled);
+
+    }
+
+
+
 
     //Makes the +5, +10, etc buttons work.
     class SetBetListener implements View.OnClickListener{
@@ -276,6 +294,7 @@ public class GameActivity extends Activity {
 
     private void playerBusted(){
         Toast.makeText(getApplicationContext(), "text", Toast.LENGTH_SHORT);
+        standPlayer();
     }
 
     private void calcTotal(){
@@ -441,6 +460,7 @@ public class GameActivity extends Activity {
         dealerHiddenScore = 0;
         dealerVisibleScore = 0;
         dealerCards = 0;
+        toggleButtons();    //re-enable hit, stand, double buttons, disable bet and start new match buttons
         // init board
         initTable();
     }
@@ -448,10 +468,12 @@ public class GameActivity extends Activity {
     private void testWin(){
         if(dealerHiddenScore > 21 || playerScore > dealerHiddenScore) {
             personWin("player");
+            doGameEnd(true); //player won
             return;
         }
         if(playerScore > 21 || playerScore < dealerHiddenScore){
             personWin("dealer");
+            doGameEnd(false); //player lost
             return;
         }
     }
