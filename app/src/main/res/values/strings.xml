@@ -27,7 +27,7 @@
 
     <string name="dealerTotal">Dealer Total:&#160;</string>
     <string name="currentScore">Current Score:&#160;</string>
-    <string name="currentBet">Current Bet: $</string>
+    <string name="currentBet">Current Bet:</string>
     <string name="hit">hit</string>
     <string name="stand">stand</string>
     <string name="doubleBtn">double</string>
