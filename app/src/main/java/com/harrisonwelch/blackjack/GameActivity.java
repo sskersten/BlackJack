@@ -40,6 +40,9 @@ public class GameActivity extends Activity {
     private static final String TAG_GAME_ACTIVITY = "GAME_ACT";
     private static final String JSON_PLAYER_CARDS = "player_cards";
     private static final String JSON_DEALER_CARDS = "dealer_cards";
+    private static final String JSON_PLAYER_SCORE = "player_score";
+    private static final String JSON_DEALER_VISIBLE_SCORE = "dealer_visible_score";
+    private static final String JSON_DEALER_HIDDEN_SCORE = "dealer_hidden_score";
 
     private JSONObject fileJSON = new JSONObject();
     private Wallet wallet;
@@ -72,6 +75,7 @@ public class GameActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG_GAME_ACTIVITY, "onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
@@ -281,6 +285,8 @@ public class GameActivity extends Activity {
 
     // gives the player a card
     private void giveCard(String person){
+
+        Log.i(TAG_GAME_ACTIVITY,"*** give card to " + person);
 
         Bitmap randCard = generateCard(cardBitmaps, person);
 
@@ -546,6 +552,9 @@ public class GameActivity extends Activity {
             try{
                 fileJSON.put(JSON_PLAYER_CARDS, cardIndexesPlayerHand);
                 fileJSON.put(JSON_DEALER_CARDS, cardIndexesInDealerHand);
+                fileJSON.put(JSON_PLAYER_SCORE, playerScore);
+                fileJSON.put(JSON_DEALER_HIDDEN_SCORE, dealerHiddenScore);
+                fileJSON.put(JSON_DEALER_VISIBLE_SCORE, dealerVisibleScore);
                 Log.i(TAG_GAME_ACTIVITY,"fileJSON write: " + fileJSON.toString());
             } catch (JSONException e1) {
                 Log.i(TAG_GAME_ACTIVITY,"error building JSON");
@@ -577,9 +586,19 @@ public class GameActivity extends Activity {
 
             Object arr = fileJSON.get(JSON_PLAYER_CARDS);
             Object arr2 = fileJSON.get(JSON_DEALER_CARDS);
+            Integer playerScoreFromFile = (int) fileJSON.get(JSON_PLAYER_SCORE);
+            Integer dealerHiddenScoreFromFile = (int) fileJSON.get(JSON_DEALER_HIDDEN_SCORE);
+            Integer dealerVisibleScoreFromFile = (int) fileJSON.get(JSON_DEALER_VISIBLE_SCORE);
 
             Vector<Integer> vecPlayerCards = stringToVectorInt((String) fileJSON.get(JSON_PLAYER_CARDS));
             Vector<Integer> vecDealerCards = stringToVectorInt((String) fileJSON.get(JSON_DEALER_CARDS));
+
+            // update activty values to the file values
+            cardIndexesPlayerHand = vecPlayerCards;
+            cardIndexesInDealerHand = vecDealerCards;
+            playerScore = playerScoreFromFile;
+            dealerHiddenScore = dealerHiddenScoreFromFile;
+            dealerVisibleScore = dealerVisibleScoreFromFile;
 
             Log.i(TAG_GAME_ACTIVITY,"arr : " + arr);
             Log.i(TAG_GAME_ACTIVITY,"arr2 : " + arr2);
@@ -589,7 +608,7 @@ public class GameActivity extends Activity {
                 Log.i(TAG_GAME_ACTIVITY, "vecDealerCards.get(i) : " + vecDealerCards.get(i));
             }
 
-            if (vecPlayerCards.size() > 0) fillTableFromIds(vecPlayerCards, "person");
+            if (vecPlayerCards.size() > 0) fillTableFromIds(vecPlayerCards, "player");
             if (vecDealerCards.size() > 0) fillTableFromIds(vecDealerCards, "dealer");
 
             Log.i(TAG_GAME_ACTIVITY, "fileJSON (read in coverted) : " + fileJSON);
@@ -621,9 +640,9 @@ public class GameActivity extends Activity {
         Log.i(TAG_GAME_ACTIVITY, "cardIndexes : " + cardIndexes + ", person : " + person);
         for(int i = 0; i < cardIndexes.size(); i++){
             if(person.equals("player")) {
-                ((ImageView) findViewById(playerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(i));
+                ((ImageView) findViewById(playerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(cardIndexes.get(i)));
             } else if (person.equals("dealer")) {
-                ((ImageView) findViewById(dealerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(i));
+                ((ImageView) findViewById(dealerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(cardIndexes.get(i)));
             }
         }
     }
