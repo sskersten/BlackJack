@@ -61,6 +61,8 @@ public class Wallet {
         return cash;
     }
 
+    public void setCash(double cash){ this.cash = cash; }
+
     /**
      * Adds an input amount of cash to the wallet, updating totalEarnings and maxCashHeld
      * in the process.
