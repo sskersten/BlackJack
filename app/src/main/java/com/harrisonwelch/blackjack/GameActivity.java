@@ -42,6 +42,7 @@ public class GameActivity extends Activity {
     private static final String JSON_DEALER_VISIBLE_SCORE = "dealer_visible_score";
     private static final String JSON_DEALER_HIDDEN_SCORE = "dealer_hidden_score";
     private static final String JSON_PLAYER_WALLET = "player_wallet";
+    private static final String JSON_PLAYER_BET = "player_bet";
 
     private JSONObject fileJSON = new JSONObject();
     private Wallet wallet;
@@ -510,6 +511,8 @@ public class GameActivity extends Activity {
             Log.i("MainAct","busted");
             gameOver = true;
             Toast.makeText(getApplicationContext(),"Player 1 busted",Toast.LENGTH_LONG).show();
+
+            // the game should end with the player losing
         }
         if (dealerHiddenScore > 21){
             Log.i("MainAct","busted");
@@ -575,6 +578,11 @@ public class GameActivity extends Activity {
         // replace the visible with hidden score
         ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerHiddenScore +"");
 
+    }
+
+    private void concealDealerCard(){
+        // "flip over" (hide) the first card in dealer hand
+        ((ImageView) findViewById(R.id.iv_table1)).setImageResource(R.drawable.card_back);
     }
 
     private void writeFile(){
@@ -687,6 +695,7 @@ public class GameActivity extends Activity {
                 ((ImageView) findViewById(dealerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(cardIndexes.get(i)));
             }
         }
+        concealDealerCard();
     }
 
 }
