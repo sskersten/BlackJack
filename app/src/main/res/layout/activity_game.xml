@@ -402,15 +402,15 @@
 
     <LinearLayout
         android:id="@+id/bet_linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/darker_gray"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/layout_bg"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline_75Perc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -426,7 +426,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -434,13 +434,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/currentMoney"
-                android:textAlignment="textStart" />
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/currentMoney_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/zero" />
+                android:text="@string/zero"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -492,6 +494,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/moneySymbol"
+                android:textColor="#111111"
                 android:textSize="24sp" />
 
             <EditText
@@ -509,6 +512,7 @@
             android:id="@+id/betOk_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#86C98A"
             android:text="@string/letsGo" />
 
     </LinearLayout>
