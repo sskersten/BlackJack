@@ -2,8 +2,8 @@
     <string name="app_name">BlackJack</string>
     <string name="Play">Play</string>
     <string name="howToPlay">How to play</string>
-    <string name="options">Options</string>
     <string name="aboutTheApp">About</string>
+    <string name="homeImageDesc">A hand of Ace, King, Queen, Jack, and 10 cards.</string>
 
     <string name="playerTurn">Player Turn</string>
 
@@ -23,7 +23,7 @@
     <string name="one">1</string>
     <string name="eleven">11</string>
 
-    <string name="dealerTotal">DealerTotal:&#160;</string>
+    <string name="dealerTotal">Dealer Total:&#160;</string>
     <string name="currentScore">Current Score:&#160;</string>
     <string name="currentBet">Current Bet: $</string>
     <string name="hit">hit</string>

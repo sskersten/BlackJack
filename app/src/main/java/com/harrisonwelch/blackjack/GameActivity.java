@@ -75,27 +75,12 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //setup money
         wallet = new Wallet(1000);
         TextView currentMoney = findViewById(R.id.currentMoney_textview);
         currentMoney.setText(wallet.toString());
 
-        //Setting up betting
-        currentBet = 5;
-        TextView currentBetValue = findViewById(R.id.bet_textview);
-        currentBetValue.setText(Wallet.convertDoubleToCashString(currentBet));
-        findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
-        SetBetListener setBetListener = new SetBetListener();
-        int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button, R.id.updateBet_button};
-        for (int id : addBetButtonIds){
-            findViewById(id).setOnClickListener(setBetListener);
-        }
-
-        /*
-        findViewById(R.id.hit_button).setOnClickListener((View view) ->{
-            doGameEnd(true);
-        });
-*/
-
+        initBetStuff();
         setButtons();
 
         cardBitmaps = makeSpriteSheet();
@@ -125,10 +110,8 @@ public class GameActivity extends Activity {
         } else {
             wallet.removeCash(currentBet);
         }
-
         //disable hit, stand buttons. enable bet, new match buttons.
         toggleButtons();
-
     }
 
     //reverses current state of all buttons.
@@ -138,11 +121,21 @@ public class GameActivity extends Activity {
         findViewById(R.id.btn_stand).setEnabled(!enabled);
         findViewById(R.id.updateBet_button).setEnabled(enabled);
         findViewById(R.id.btn_reset).setEnabled(enabled);
-
     }
 
-
-
+    //Setting up starting bet, the bet textviews, and bet buttons.
+    public void initBetStuff(){
+        currentBet = 5;
+        TextView currentBetValue = findViewById(R.id.bet_textview);
+        currentBetValue.setText(Wallet.convertDoubleToCashString(currentBet));
+        findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+        findViewById(R.id.betBackground_view).setVisibility(View.GONE);
+        SetBetListener setBetListener = new SetBetListener();
+        int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button, R.id.updateBet_button};
+        for (int id : addBetButtonIds){
+            findViewById(id).setOnClickListener(setBetListener);
+        }
+    }
 
     //Makes the +5, +10, etc buttons work.
     class SetBetListener implements View.OnClickListener{
@@ -183,24 +176,32 @@ public class GameActivity extends Activity {
             }
         }
 
+        //if betting menu is displayed, remove it. if it isn't displayed, put it up there.
         private void toggleBettingMenu(){
             LinearLayout betMenu = findViewById(R.id.bet_linearLayout);
             if (betMenuShown) {
                 Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
-                findViewById(R.id.bet_linearLayout).startAnimation(fadeOut);
-                findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+                betMenu.startAnimation(fadeOut);
+                betMenu.setVisibility(View.GONE);
+                View background = findViewById(R.id.betBackground_view);
+                background.startAnimation(fadeOut);
+                background.setVisibility(View.GONE);
                 betMenuShown = false;
             } else {
 
                 Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
                 betMenu.startAnimation(fadeIn);
-                findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
+                betMenu.setVisibility(View.VISIBLE);
+                View background = findViewById(R.id.betBackground_view);
+                background.startAnimation(fadeIn);
+                background.setVisibility(View.VISIBLE);
                 TextView currentMoney = findViewById(R.id.currentMoney_textview);
                 currentMoney.setText(wallet.toString());
                 betMenuShown = true;
             }
         }
 
+        //change the currently active bet to a specified amount and remove the Bet menu.
         private void setBet(double betAmount){
             //set cash to max they have if the amount input is over what they currently have
             if (betAmount > wallet.getCash()){
@@ -240,7 +241,6 @@ public class GameActivity extends Activity {
             if (betAmount > wallet.getCash()){
                 betAmount = wallet.getCash();
             }
-
 
             betAmount_editText.setText(Wallet.convertDoubleToCashString(betAmount));
         }
@@ -464,7 +464,7 @@ public class GameActivity extends Activity {
     }
     private boolean isBusted(String person){
         if(person.equals("player")) return (playerScore > 21);
-        if(person.equals("dealer")) return (playerScore > 21);
+        if(person.equals("dealer")) return (dealerHiddenScore > 21);
         return false;
     }
     private void testBust(){
@@ -514,7 +514,7 @@ public class GameActivity extends Activity {
             doGameEnd(true); //player won
             return;
         }
-        if(playerScore > 21 || playerScore < dealerHiddenScore){
+        if(playerScore > 21 || playerScore <= dealerHiddenScore){
             personWin("dealer");
             doGameEnd(false); //player lost
             return;
