@@ -129,6 +129,7 @@ public class GameActivity extends Activity {
         TextView currentBetValue = findViewById(R.id.bet_textview);
         currentBetValue.setText(Wallet.convertDoubleToCashString(currentBet));
         findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+        findViewById(R.id.betBackground_view).setVisibility(View.GONE);
         SetBetListener setBetListener = new SetBetListener();
         int[] addBetButtonIds = {R.id.betAdd5_button, R.id.betAdd10_button, R.id.betAdd25_button, R.id.betAdd50_button, R.id.betOk_button, R.id.updateBet_button};
         for (int id : addBetButtonIds){
@@ -180,14 +181,20 @@ public class GameActivity extends Activity {
             LinearLayout betMenu = findViewById(R.id.bet_linearLayout);
             if (betMenuShown) {
                 Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
-                findViewById(R.id.bet_linearLayout).startAnimation(fadeOut);
-                findViewById(R.id.bet_linearLayout).setVisibility(View.GONE);
+                betMenu.startAnimation(fadeOut);
+                betMenu.setVisibility(View.GONE);
+                View background = findViewById(R.id.betBackground_view);
+                background.startAnimation(fadeOut);
+                background.setVisibility(View.GONE);
                 betMenuShown = false;
             } else {
 
                 Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
                 betMenu.startAnimation(fadeIn);
-                findViewById(R.id.bet_linearLayout).setVisibility(View.VISIBLE);
+                betMenu.setVisibility(View.VISIBLE);
+                View background = findViewById(R.id.betBackground_view);
+                background.startAnimation(fadeIn);
+                background.setVisibility(View.VISIBLE);
                 TextView currentMoney = findViewById(R.id.currentMoney_textview);
                 currentMoney.setText(wallet.toString());
                 betMenuShown = true;
