@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +29,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
@@ -333,7 +331,7 @@ public class GameActivity extends Activity {
             cardIndexesInDealerHand.add(randInt);
         }
 
-        updateScore(randInt, person);
+        updateScoreFromRandomInteger(randInt, person);
 
 
         return vec.get(randInt);
@@ -424,7 +422,7 @@ public class GameActivity extends Activity {
         giveCard("player");
 
     }
-    private void updateScore(int i, String person){
+    private void updateScoreFromRandomInteger(int i, String person){
 
         int cardValue = Integer.parseInt(pointValues[i%pointValues.length]);
 
@@ -475,6 +473,26 @@ public class GameActivity extends Activity {
 
         testBust();
 
+    }
+    // for the person set the internal data val to the score and
+    private void updateScoreForPerson(int score, String person){
+        if(person.equals("player")){
+
+            // data
+            playerScore = score;
+
+            // UI
+            ( (TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
+
+        } else if (person.equals("dealer_visible")){
+
+            // UI only
+            ( (TextView) findViewById(R.id.tv_dealerScore)).setText(dealerVisibleScore+"");
+
+        } else if (person.equals("dealer_hidden")){
+            // data only
+            dealerHiddenScore = score;
+        }
     }
     private boolean isBusted(String person){
         if(person.equals("player")) return (playerScore > 21);
@@ -608,9 +626,9 @@ public class GameActivity extends Activity {
             // update activty values to the file values
             cardIndexesPlayerHand = vecPlayerCards;
             cardIndexesInDealerHand = vecDealerCards;
-            playerScore = playerScoreFromFile;
-            dealerHiddenScore = dealerHiddenScoreFromFile;
-            dealerVisibleScore = dealerVisibleScoreFromFile;
+            updateScoreForPerson(playerScoreFromFile, "player");
+            updateScoreForPerson(dealerVisibleScoreFromFile, "dealer_visible");
+            updateScoreForPerson(dealerHiddenScoreFromFile, "dealer_hidden");
 
             Log.i(TAG_GAME_ACTIVITY,"arr : " + arr);
             Log.i(TAG_GAME_ACTIVITY,"arr2 : " + arr2);
