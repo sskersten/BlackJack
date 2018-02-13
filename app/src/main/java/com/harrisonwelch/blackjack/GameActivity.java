@@ -483,18 +483,21 @@ public class GameActivity extends Activity {
     }
     // for the person set the internal data val to the score and
     private void updateScoreForPerson(int score, String person){
+
+        Log.i(TAG_GAME_ACTIVITY, "updateScoreForPerson() score : " + score);
         if(person.equals("player")){
 
             // data
             playerScore = score;
 
             // UI
-            ( (TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
+            ( (TextView) findViewById(R.id.tv_playerScore)).setText(score+"");
 
         } else if (person.equals("dealer_visible")){
 
             // UI only
-            ( (TextView) findViewById(R.id.tv_dealerScore)).setText(dealerVisibleScore+"");
+            ( (TextView) findViewById(R.id.tv_dealerScore)).setText(score+"");
+            Log.i(TAG_GAME_ACTIVITY, "updateScoreForPerson() dealerVisibleScore : " + dealerVisibleScore);
 
         } else if (person.equals("dealer_hidden")){
             // data only
@@ -651,6 +654,7 @@ public class GameActivity extends Activity {
             Integer playerScoreFromFile = (int) fileJSON.get(JSON_PLAYER_SCORE);
             Integer dealerHiddenScoreFromFile = (int) fileJSON.get(JSON_DEALER_HIDDEN_SCORE);
             Integer dealerVisibleScoreFromFile = (int) fileJSON.get(JSON_DEALER_VISIBLE_SCORE);
+            Log.i(TAG_GAME_ACTIVITY, "readFile() dealerVisibleScoreFromFile : " + dealerVisibleScoreFromFile);
             Double walletValueFromFile = Double.parseDouble( (String) fileJSON.get(JSON_PLAYER_WALLET));
 
             Vector<Integer> vecPlayerCards = stringToVectorInt((String) fileJSON.get(JSON_PLAYER_CARDS));
