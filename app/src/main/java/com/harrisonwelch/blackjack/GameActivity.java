@@ -422,7 +422,9 @@ public class GameActivity extends Activity {
 
         int cardValue = Integer.parseInt(pointValues[i%pointValues.length]);
 
-        if( isPlayerAceSubracted || isDealerAceSubracted ){
+        if( cardValue == 11
+                && ((isPlayerAceSubracted && person.equals("player"))
+                || (isDealerAceSubracted && person.equals("dealer"))) ){
             cardValue = 1;
         }else if(cardValue == 11){
             if(person.equals("player")){
@@ -449,14 +451,20 @@ public class GameActivity extends Activity {
             ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
         }
 
+        //if either player or dealer busts and has an ace, subtract 10 from their score
+        // and set them to have further aces be 1.
         if(playerHasAce && isBusted("player") && !isPlayerAceSubracted) {
             isPlayerAceSubracted = true;
             playerScore -= 10;
+            ((TextView) findViewById(R.id.tv_playerScore)).setText(playerScore+"");
+
         }
         if(dealerHasAce && isBusted("dealer") && !isDealerAceSubracted){
-            isPlayerAceSubracted = true;
+            isDealerAceSubracted = true;
             dealerVisibleScore -= 10;
             dealerHiddenScore -= 10;
+            ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerVisibleScore +"");
+
         }
 
         testBust();
@@ -501,6 +509,10 @@ public class GameActivity extends Activity {
         dealerHiddenScore = 0;
         dealerVisibleScore = 0;
         dealerCards = 0;
+        playerHasAce = false;
+        dealerHasAce = false;
+        isPlayerAceSubracted = false;
+        isDealerAceSubracted = false;
         cardIndexesPlayerHand.clear();
         cardIndexesInDealerHand.clear();
         toggleButtons();    //re-enable hit, stand, double buttons, disable bet and start new match buttons
