@@ -464,7 +464,7 @@ public class GameActivity extends Activity {
     }
     private boolean isBusted(String person){
         if(person.equals("player")) return (playerScore > 21);
-        if(person.equals("dealer")) return (playerScore > 21);
+        if(person.equals("dealer")) return (dealerHiddenScore > 21);
         return false;
     }
     private void testBust(){
@@ -514,7 +514,7 @@ public class GameActivity extends Activity {
             doGameEnd(true); //player won
             return;
         }
-        if(playerScore > 21 || playerScore < dealerHiddenScore){
+        if(playerScore > 21 || playerScore <= dealerHiddenScore){
             personWin("dealer");
             doGameEnd(false); //player lost
             return;
