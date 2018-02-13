@@ -558,21 +558,34 @@ public class GameActivity extends Activity {
     }
 
     private void testWin(){
-        if(dealerHiddenScore > 21 || playerScore > dealerHiddenScore) {
+        // quick test for bust
+
+        if(dealerHiddenScore > 21) {
             personWin("player");
             doGameEnd(true); //player won
             return;
         }
-        if(playerScore > 21 || playerScore <= dealerHiddenScore){
+
+        if (playerScore > 21) {
             personWin("dealer");
             doGameEnd(false); //player lost
+            return;
+        }
+
+        // neither player busted so now we test the values against each other
+        if (dealerHiddenScore >= playerScore){
+            personWin("dealer");
+            doGameEnd(false);
+            return;
+        } else {
+            personWin("player");
+            doGameEnd(true);
             return;
         }
     }
 
     private void personWin(String person){
         Toast.makeText(getApplicationContext(),person + " won!!!",Toast.LENGTH_SHORT).show();
-
     }
 
     private void revealDealerCard(){
