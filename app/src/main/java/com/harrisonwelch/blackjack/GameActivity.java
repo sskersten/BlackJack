@@ -591,7 +591,7 @@ public class GameActivity extends Activity {
                 fileJSON.put(JSON_PLAYER_SCORE, playerScore);
                 fileJSON.put(JSON_DEALER_HIDDEN_SCORE, dealerHiddenScore);
                 fileJSON.put(JSON_DEALER_VISIBLE_SCORE, dealerVisibleScore);
-                fileJSON.put(JSON_PLAYER_WALLET, wallet.getCash());
+                fileJSON.put(JSON_PLAYER_WALLET, wallet.toString());
                 Log.i(TAG_GAME_ACTIVITY,"fileJSON write: " + fileJSON.toString());
             } catch (JSONException e1) {
                 Log.i(TAG_GAME_ACTIVITY,"error building JSON");
@@ -626,7 +626,7 @@ public class GameActivity extends Activity {
             Integer playerScoreFromFile = (int) fileJSON.get(JSON_PLAYER_SCORE);
             Integer dealerHiddenScoreFromFile = (int) fileJSON.get(JSON_DEALER_HIDDEN_SCORE);
             Integer dealerVisibleScoreFromFile = (int) fileJSON.get(JSON_DEALER_VISIBLE_SCORE);
-            Double walletValueFromFile = (double) fileJSON.get(JSON_PLAYER_WALLET);
+            Double walletValueFromFile = Double.parseDouble( (String) fileJSON.get(JSON_PLAYER_WALLET));
 
             Vector<Integer> vecPlayerCards = stringToVectorInt((String) fileJSON.get(JSON_PLAYER_CARDS));
             Vector<Integer> vecDealerCards = stringToVectorInt((String) fileJSON.get(JSON_DEALER_CARDS));
