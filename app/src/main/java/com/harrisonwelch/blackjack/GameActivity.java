@@ -511,6 +511,8 @@ public class GameActivity extends Activity {
             Log.i("MainAct","busted");
             gameOver = true;
             Toast.makeText(getApplicationContext(),"Player 1 busted",Toast.LENGTH_LONG).show();
+            revealDealerCard();
+            testWin();
 
             // the game should end with the player losing
         }
@@ -518,6 +520,8 @@ public class GameActivity extends Activity {
             Log.i("MainAct","busted");
             gameOver = true;
             Toast.makeText(getApplicationContext(),"The Dealer busted",Toast.LENGTH_LONG).show();
+            revealDealerCard();
+            testWin();
         }
 
     }
