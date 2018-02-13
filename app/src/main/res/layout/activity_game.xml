@@ -318,6 +318,15 @@
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     <TextView
+        android:id="@+id/tv_playerScore"
+        style="@style/infoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        app:layout_constraintBottom_toTopOf="@+id/bet_textview"
+        app:layout_constraintStart_toEndOf="@+id/textView13" />
+
+    <TextView
         android:id="@+id/textView15"
         style="@style/infoText"
         android:layout_width="wrap_content"
@@ -328,15 +337,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     <TextView
-        android:id="@+id/tv_playerScore"
-        style="@style/infoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/zero"
-        app:layout_constraintBottom_toTopOf="@+id/bet_textview"
-        app:layout_constraintStart_toEndOf="@+id/textView13" />
-
-    <TextView
         android:id="@+id/bet_textview"
         style="@style/infoText"
         android:layout_width="wrap_content"
@@ -345,6 +345,48 @@
         android:text="@string/zero"
         app:layout_constraintBottom_toTopOf="@+id/btn_hit"
         app:layout_constraintStart_toEndOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/infoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/currentMoneyNoSign"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/line4" />
+
+    <TextView
+        android:id="@+id/textView8"
+        style="@style/infoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/dollarSign"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hit"
+        app:layout_constraintStart_toEndOf="@+id/line4" />
+
+    <TextView
+        android:id="@+id/mainMoney_textview"
+        style="@style/infoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/zero"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hit"
+        app:layout_constraintStart_toEndOf="@+id/textView8" />
+
+    <View
+        android:id="@+id/line4"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hit"
+        app:layout_constraintStart_toEndOf="@+id/bet_textview"
+        app:layout_constraintTop_toBottomOf="@+id/playerCards"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/updateBet_button"

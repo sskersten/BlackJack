@@ -16,7 +16,9 @@
     <string name="letsGo">Let\'s Go!</string>
     <string name="overMoneyHeldError">You don\'t have that much money in your wallet!</string>
     <string name="notEnoughMoneyBetError">Minimum bet is $5.00 at this table.</string>
-    <string name="currentMoney">Current Money: $</string>
+    <string name="currentMoney">Your Wallet has: $</string>
+    <string name="currentMoneyNoSign">Your Wallet Has:</string>
+    <string name="dollarSign">$</string>
 
     <string name="valueForAce">Value for Ace Card?</string>
     <string name="aceSubtext">Note: Ace value will be automatically set to 1 if total score goes over 21.</string>]

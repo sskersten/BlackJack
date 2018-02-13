@@ -77,8 +77,7 @@ public class GameActivity extends Activity {
 
         //setup money
         wallet = new Wallet(1000);
-        TextView currentMoney = findViewById(R.id.currentMoney_textview);
-        currentMoney.setText(wallet.toString());
+        updateCurrentMoneyDisplays();
 
         initBetStuff();
         setButtons();
@@ -110,8 +109,16 @@ public class GameActivity extends Activity {
         } else {
             wallet.removeCash(currentBet);
         }
+        updateCurrentMoneyDisplays();
+
         //disable hit, stand buttons. enable bet, new match buttons.
         toggleButtons();
+    }
+
+    //update both money displays in main game app and in betting menu
+    private void updateCurrentMoneyDisplays(){
+        ((TextView) findViewById(R.id.mainMoney_textview)).setText(wallet.toString());
+        ((TextView) findViewById(R.id.currentMoney_textview)).setText(wallet.toString());
     }
 
     //reverses current state of all buttons.
@@ -195,8 +202,6 @@ public class GameActivity extends Activity {
                 View background = findViewById(R.id.betBackground_view);
                 background.startAnimation(fadeIn);
                 background.setVisibility(View.VISIBLE);
-                TextView currentMoney = findViewById(R.id.currentMoney_textview);
-                currentMoney.setText(wallet.toString());
                 betMenuShown = true;
             }
         }
