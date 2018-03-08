@@ -29,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
@@ -65,8 +66,26 @@ public class GameActivity extends Activity {
     boolean isPlayerAceSubracted = false;
     boolean isDealerAceSubracted = false;
     Vector<String> cardsInHand = new Vector<>();
-    Vector<Bitmap> cardBitmaps = new Vector<>();
-    Bitmap dealersSecretCard;
+    Vector<Integer> cardBitmaps = new Vector<>(Arrays.asList(
+            R.drawable.card_2_of_spades, R.drawable.card_3_of_spades, R.drawable.card_4_of_spades , R.drawable.card_5_of_spades ,
+             R.drawable.card_6_of_spades ,  R.drawable.card_7_of_spades ,  R.drawable.card_8_of_spades ,  R.drawable.card_9_of_spades ,
+             R.drawable.card_10_of_spades ,  R.drawable.card_jack_of_spades ,  R.drawable.card_queen_of_spades ,  R.drawable.card_king_of_spades ,
+             R.drawable.card_ace_of_spades ,
+             R.drawable.card_2_of_clubs ,  R.drawable.card_3_of_clubs ,  R.drawable.card_4_of_clubs ,  R.drawable.card_5_of_clubs ,
+             R.drawable.card_6_of_clubs ,  R.drawable.card_7_of_clubs ,  R.drawable.card_8_of_clubs ,  R.drawable.card_9_of_clubs ,
+             R.drawable.card_10_of_clubs ,  R.drawable.card_jack_of_clubs ,  R.drawable.card_queen_of_clubs ,  R.drawable.card_king_of_clubs ,
+             R.drawable.card_ace_of_clubs ,
+             R.drawable.card_2_of_hearts ,  R.drawable.card_3_of_hearts ,  R.drawable.card_4_of_hearts ,  R.drawable.card_5_of_hearts ,
+             R.drawable.card_6_of_hearts ,  R.drawable.card_7_of_hearts ,  R.drawable.card_8_of_hearts ,  R.drawable.card_9_of_hearts ,
+             R.drawable.card_10_of_hearts ,  R.drawable.card_jack_of_hearts ,  R.drawable.card_queen_of_hearts ,  R.drawable.card_king_of_hearts ,
+             R.drawable.card_ace_of_hearts ,
+             R.drawable.card_2_of_diamonds ,  R.drawable.card_3_of_diamonds ,  R.drawable.card_4_of_diamonds ,  R.drawable.card_5_of_diamonds ,
+             R.drawable.card_6_of_diamonds ,  R.drawable.card_7_of_diamonds ,  R.drawable.card_8_of_diamonds ,  R.drawable.card_9_of_diamonds ,
+             R.drawable.card_10_of_diamonds ,  R.drawable.card_jack_of_diamonds ,  R.drawable.card_queen_of_diamonds ,  R.drawable.card_king_of_diamonds ,
+             R.drawable.card_ace_of_diamonds
+    ));
+    int dealersSecretCard;
+
 
     Vector<Integer> cardIndexesPlayerHand = new Vector<>();
     Vector<Integer> cardIndexesInDealerHand = new Vector<>();
@@ -85,9 +104,6 @@ public class GameActivity extends Activity {
 
         initBetStuff();
         setButtons();
-
-        cardBitmaps = makeSpriteSheet();
-
         resetGame();
 
     }
@@ -293,7 +309,7 @@ public class GameActivity extends Activity {
 
         Log.i(TAG_GAME_ACTIVITY,"*** give card to " + person);
 
-        Bitmap randCard = generateCard(cardBitmaps, person);
+        int randCard = generateCard(cardBitmaps, person);
 
         if(person.equals("dealer")){
             if(dealerCards == 0){
@@ -302,13 +318,13 @@ public class GameActivity extends Activity {
                 dealerCards++;
 
             } else if (dealerCards < dealerCardSlotIds.length) {
-                ( (ImageView) findViewById(dealerCardSlotIds[dealerCards])).setImageBitmap(randCard);
+                ( (ImageView) findViewById(dealerCardSlotIds[dealerCards])).setImageResource(randCard);
                 dealerCards++;
             }
 
         } else if(person.equals("player")){
             if(playerCards < playerCardSlotIds.length){
-                ( (ImageView) findViewById(playerCardSlotIds[playerCards])).setImageBitmap(randCard);
+                ( (ImageView) findViewById(playerCardSlotIds[playerCards])).setImageResource(randCard);
                 playerCards++;
             }
         }
@@ -326,7 +342,7 @@ public class GameActivity extends Activity {
         gameOver = true;
     }
 
-    private Bitmap generateCard(Vector<Bitmap> vec, String person){
+    private Integer generateCard(Vector<Integer> vec, String person){
         int randInt = (random.nextInt(52));
         Log.i("TAG","vec size : " + vec.size());
         Log.i("TAG","randInt : " + randInt);
@@ -387,7 +403,7 @@ public class GameActivity extends Activity {
         Vector<Bitmap> vec = new Vector<Bitmap>();
 
         AssetManager assetManager = getApplicationContext().getAssets();
-        String filePath = "../../../res/assets/cards_full.png";
+        String filePath = "../../../res/assets/cards_full" ;
         InputStream inputStream;
         Bitmap bitmapStream = null;
         try {
@@ -593,7 +609,7 @@ public class GameActivity extends Activity {
 
     private void revealDealerCard(){
         // show the secret card
-        ((ImageView) findViewById(R.id.iv_table1)).setImageBitmap(dealersSecretCard);
+        ((ImageView) findViewById(R.id.iv_table1)).setImageResource(dealersSecretCard);
 
         // replace the visible with hidden score
         ((TextView) findViewById(R.id.tv_dealerScore)).setText(dealerHiddenScore +"");
@@ -711,9 +727,9 @@ public class GameActivity extends Activity {
         Log.i(TAG_GAME_ACTIVITY, "cardIndexes : " + cardIndexes + ", person : " + person);
         for(int i = 0; i < cardIndexes.size(); i++){
             if(person.equals("player")) {
-                ((ImageView) findViewById(playerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(cardIndexes.get(i)));
+                ((ImageView) findViewById(playerCardSlotIds[i])).setImageResource(cardBitmaps.get(cardIndexes.get(i)));
             } else if (person.equals("dealer")) {
-                ((ImageView) findViewById(dealerCardSlotIds[i])).setImageBitmap(cardBitmaps.get(cardIndexes.get(i)));
+                ((ImageView) findViewById(dealerCardSlotIds[i])).setImageResource(cardBitmaps.get(cardIndexes.get(i)));
             }
         }
         concealDealerCard();
