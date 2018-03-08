@@ -553,10 +553,10 @@ public class GameActivity extends Activity {
         // clear all slots
         for(int i = 0; i < dealerCardSlotIds.length; i++){
             // set to blank bitmaps
-            ( ( ImageView ) findViewById(dealerCardSlotIds[i])).setImageBitmap(Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888));
+            ( ( ImageView ) findViewById(dealerCardSlotIds[i])).setImageResource(R.drawable.card_blank);
         }
         for(int i = 0; i < playerCardSlotIds.length; i++){
-            ( ( ImageView ) findViewById(playerCardSlotIds[i])).setImageBitmap(Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888));
+            ( ( ImageView ) findViewById(playerCardSlotIds[i])).setImageResource(R.drawable.card_blank);
             //
         }
 
