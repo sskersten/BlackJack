@@ -338,8 +338,7 @@ public class GameActivity extends Activity {
             giveCard("dealer");
         }
         revealDealerCard();
-        testWin();
-        gameOver = true;
+        if (dealerHiddenScore <= 21) testWin();
     }
 
     private Integer generateCard(Vector<Integer> vec, String person){
@@ -389,46 +388,6 @@ public class GameActivity extends Activity {
 
     }
 
-    private Vector<Bitmap> makeSpriteSheet() {
-
-        double ampFactor = 3.52;
-        // image size 800*332
-        int cardHeight = (int)((332/4) * ampFactor);
-        int cardWidth = (int)(((800 - 800*((float)(1/14))) / 14) * ampFactor);
-        int numberFramesInRows = 13;
-        int totalFrames = 54;
-
-        int xStart = 0;
-        int yStart = 0;
-        Vector<Bitmap> vec = new Vector<Bitmap>();
-
-        AssetManager assetManager = getApplicationContext().getAssets();
-        String filePath = "../../../res/assets/cards_full" ;
-        InputStream inputStream;
-        Bitmap bitmapStream = null;
-        try {
-            inputStream = assetManager.open(filePath);
-            Log.i("makeSpriteSheet","(YES) found the file " + filePath);
-        } catch (Exception e){
-            Log.i("makeSpriteSheet","(NO) Could not find file " + filePath);
-        }
-
-
-        Bitmap cardSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.cards_full);
-
-        for(int i = 0; i < totalFrames; i++){
-            xStart = ( i % numberFramesInRows) * cardWidth;
-            yStart = ( i / numberFramesInRows) * cardHeight;
-            Log.i("TAG","xStart : " + xStart + ", yStart : "+ yStart);
-            Bitmap bitmap = Bitmap.createBitmap(cardWidth,cardHeight,Bitmap.Config.ARGB_8888);
-            Canvas c = new Canvas(bitmap);
-            Rect src = new Rect(xStart,yStart,xStart+cardWidth,yStart+cardHeight);
-            Rect dst = new Rect(0,0,cardWidth,cardHeight);
-            c.drawBitmap(cardSpriteSheet,src,dst,null);
-            vec.add(bitmap);
-        }
-        return vec;
-    }
 
     private void initTable(){
         // initialize the table to give the dealer 1 face down card and the player 2 face up cards
@@ -547,9 +506,6 @@ public class GameActivity extends Activity {
     private void resetGame(){
         gameOver = true;
 
-        double ampFactor = 3.52;
-        int cardHeight = (int)((332/4) * ampFactor);
-        int cardWidth = (int)(((800 - 800*((float)(1/14))) / 14) * ampFactor);
         // clear all slots
         for(int i = 0; i < dealerCardSlotIds.length; i++){
             // set to blank bitmaps
@@ -596,11 +552,14 @@ public class GameActivity extends Activity {
             personWin("dealer");
             doGameEnd(false);
             return;
-        } else {
+        } else if (dealerHiddenScore < playerScore){
             personWin("player");
             doGameEnd(true);
             return;
         }
+
+        personWin("dealer");
+        doGameEnd(false);
     }
 
     private void personWin(String person){
